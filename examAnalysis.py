@@ -1,5 +1,5 @@
-#reference: https://www.geeksforgeeks.org/working-csv-files-python/
-#importing csv module
+# reference: https://www.geeksforgeeks.org/working-csv-files-python/
+# importing csv module
 import numpy as np
 import csv
 import sys
@@ -43,13 +43,13 @@ if os.path.isfile(filename):
 else:
     sys.exit("datafile doesn't exist; check your spelling")
 
-#initializing the items dict with question numbers as keys with empty lists.
+# initializing the items dict with question numbers as keys with empty lists.
 for q in rows[0][0:numQuestions]:
     items[q] = []
     items_1_0[q] = []
     questions.append(q)
 
-#appending answers list to the items dictionary
+# appending answers list to the items dictionary
 for row in rows[1:]:
     # parsing each column of a row
     index = 1
@@ -81,6 +81,7 @@ fields = ["Item ID", "# of Students Answered Correct", "# of Students Answered I
 big_data = []
 data = dict.fromkeys(fields)
 
+#num of correct students for a question
 def correct(id, answer):
     count = 0
     for x in items[id]:
@@ -88,6 +89,7 @@ def correct(id, answer):
             count += 1
     return count
 
+# mean exam score for those who got the correct answer (you can pass in FR or MC exam scores)
 def meanCorrect(itemsID, answer, listTestScores):
     sum = 0
     count = 0
@@ -97,6 +99,7 @@ def meanCorrect(itemsID, answer, listTestScores):
             count += 1
     return round(sum/count, 2)
 
+# mean exam score for those who got the incorrect answer (you can pass in FR or MC exam scores)
 def meanIncorrect(itemsID, answer, listTestScores):
     sum = 0
     count = 0
@@ -109,6 +112,7 @@ def meanIncorrect(itemsID, answer, listTestScores):
     else:
         return "-"
 
+# num students who chose that answer choice 
 def countAnswerChosen(itemsID, answer):
     count = 0
     for response in items[itemsID]:
@@ -116,6 +120,7 @@ def countAnswerChosen(itemsID, answer):
             count += 1
     return count
 
+# used to calculate correlation of each question with the MC or FRQ scores
 def r(id, score, numCorrect):
     if numStudents == numCorrect:
         return "-"
@@ -145,7 +150,7 @@ def kr20omit(c, q):
     kr20 = (numQuestions/(numQuestions-1))*(1-pqSum/variance)
     return round(kr20, 2)
 
-
+# used to calculate correlation of each question's answer choice with FRQ score 
 def rChoice(itemsID, choice):
     choice_0_1 = []
     num = 0
